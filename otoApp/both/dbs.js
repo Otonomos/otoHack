@@ -50,12 +50,12 @@ dbs.prototype.doTxn = function(from, to, amount){
     },
     content : '{"transferType":"01","transactionAmount":{"amount":1,"currency":"SGD"},"valueDate":"2016-11-15","transactionDesc":"test","transferFromDetl":{"accountId":"'+from+'","productType":"CA","accountNumber":"028-28967124"},"transferToDetl":{"accountId":"'+to+'","productType":"CA","accountNumber":"028-28967124"}}'
   }, function(e, r){
-    console.log(e,r);
+    //console.log(e,r);
 
     if( e )
       throw e;
 
-    console.log( r.content )
+    console.log('Transaction ID: ', r.data.transactionReference )
   });
 }
 

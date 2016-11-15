@@ -54,12 +54,6 @@ Meteor.startup(function() {
     }
   });
 
-  Accounts.createUserWithPhone({
-    phone: '+972501234568',
-    profile: {
-      name: 'My friend 2'
-    }
-  });
 
   Accounts.createUserWithPhone({
     phone: '+972501234569',
@@ -67,4 +61,13 @@ Meteor.startup(function() {
       name: 'My friend 3'
     }
   });
+  
+
+  if (AssetWallets.find().count() == 0) {
+    AssetWallets.insert({
+      userId: "cGPgYXTixmNdFXkXB",
+      assetName: "Shares @Otonomos"
+    })
+  }
 });
+

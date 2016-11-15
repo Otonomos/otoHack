@@ -1,8 +1,8 @@
 {
-  "name": "whatsapp",
+  "name": "dbs",
   "private": true,
   "scripts": {
-    "start": "meteor run"
+    "start": "MONGO_URL=mongodb://development.otonomos.com/dbs meteor run --settings config/settings.json"
   },
   "dependencies": {
     "angular": "^1.5.8",
