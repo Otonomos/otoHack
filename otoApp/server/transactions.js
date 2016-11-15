@@ -14,7 +14,7 @@ Meteor.methods({
         "_id" : "qNGdZ9ZN6nL4uoz9n", 
         "from" : "nqNGdZ9ZN6nL4uoz9", 
         "to" : "BXw9Mb2HxZn8B5yQ7", 
-        "assetName" : "Cool Story Ltd.", 
+        "assetName" : "Otonomos BCC Pte. Ltd.", 
         "amount" : NumberInt(1000), 
         "price" : NumberInt(5), 
         "settled" : false

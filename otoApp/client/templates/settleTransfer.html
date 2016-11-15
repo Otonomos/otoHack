@@ -13,11 +13,11 @@
 			<div class="list list-inset">
 				<label class="item item-input">
 					<i class="icon ion-person placeholder-icon col col-10"></i>
-			    <span class="col col-80 small-text">Paul du Long</span>
+			    <span class="col col-80 small-text">{{ st.fromName(st.thisTransaction.from) }}</thisTransaction></span>
 			  </label>
 				<label class="item item-input">
 					<i class="icon ion-ios-bookmarks placeholder-icon col col-10"></i>
-					<span class="col col-80 small-text">DBS eCurrent Plus 653-1238412</span>
+					<span class="col col-80 small-text">{{ st.getAccount(st.thisTransaction.from) }}</span>
 				</label>
 			</div>
 

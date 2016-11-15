@@ -95,8 +95,5 @@ Meteor.methods({
     check(data, String);
 
     return Meteor.users.update(this.userId, { $set: { 'profile.picture': data } });
-  },
-  numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");    
   }
 });

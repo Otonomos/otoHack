@@ -17,7 +17,7 @@
 							{{account.name}}
 						</div>
 						<div class="col col-20 fw300">
-							$ {{account.amount}}
+							$ {{hp.numberWithCommas(account.amount)}}
 						</div>
 					</div>
 				</div>
@@ -34,7 +34,7 @@
 								({{wallet.assetAddress}})
 							</div>
 							<div class="col col-40 fw300">
-								{{wallet.amount}} shares
+								{{hp.numberWithCommas(wallet.amount)}} shares
 							</div>
 						</div>
 					</a>
@@ -50,10 +50,11 @@
 					<div class="row">
 						<div class="col col-75 fw300 item-text-wrap">
 							<!-- Rick B. wants to transfer 1,000 shares to you at $5 each -->
-							{{hp.fromName(tx.from)}} wants to transfer {{numberWithCommas(tx.amount)}} to you at ${{tx.price}} each
+							{{hp.fromName(tx.from)}} wants to transfer {{hp.numberWithCommas(tx.amount)}} to you at ${{tx.price}} each
 						</div>   
 						<div class="col col-25 fw300">
-							<button class="button button-assertive button-small" ng-click="hp.goToPage('settleTransfer')" ng-if="!tx.settled">Pay ${{hp.multiply(tx.amount, tx.price)}}</button>
+							<!-- button class="button button-assertive button-small" ng-click="hp.goToPage('settleTransfer')" ng-if="!tx.settled">Pay ${{hp.numberWithCommas(hp.multiply(tx.amount, tx.price))}}</button-->
+							<button class="button button-assertive button-small" ng-click="hp.setupSettleTransfer(tx._id)" ng-if="!tx.settled">Pay ${{hp.numberWithCommas(hp.multiply(tx.amount, tx.price))}}</button>
 							<button class="button button-balanced button-small" ng-if="tx.settled">Settled</button>
 						</div>
 					</div>

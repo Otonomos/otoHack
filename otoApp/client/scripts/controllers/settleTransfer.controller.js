@@ -1,9 +1,10 @@
 import Ionic from 'ionic-scripts';
 import { _ } from 'meteor/underscore';
 import { Meteor } from 'meteor/meteor';
-//  
+import { Session } from 'meteor/session';
+
 import { Controller } from 'angular-ecmascript/module-helpers';
-import { AssetWallets, Assets } from '../../../lib/collections';
+import { AssetWallets, Assets, Transactions, BankAccounts} from '../../../lib/collections';
 
 export default class stCtrl extends Controller {
   constructor() {
@@ -23,13 +24,15 @@ export default class stCtrl extends Controller {
 
       totalAmount(){
         return this.price * this.numOfShares;
+      },
+
+      thisTransaction() {
+        return Transactions.findOne(Session.get('txID'));
       }
     });
 
     //this.autoScroll();
   }
-
-
 
   handleError(err) {
     if (err.error == 'cancel') return;
@@ -41,6 +44,17 @@ export default class stCtrl extends Controller {
       okType: 'button-positive button-clear'
     });
   }
+
+  fromName(userId) {
+    if(!userId) userId = Meteor.userId();
+    return Meteor.users.findOne(userId).profile.name;
+  }
+
+  getAccount(user) {
+    if(!user) user = Meteor.userId();
+    return BankAccounts.findOne({userId: user}).name;    
+  }
+
 }
 
 stCtrl.$name = 'stCtrl';

@@ -1,7 +1,8 @@
 import Ionic from 'ionic-scripts';
 import { _ } from 'meteor/underscore';
 import { Meteor } from 'meteor/meteor';
-//  
+import { Session } from 'meteor/session';
+  
 import { Controller } from 'angular-ecmascript/module-helpers';
 import { AssetWallets, Assets, BankAccounts, Transactions } from '../../../lib/collections';
 
@@ -41,9 +42,14 @@ export default class hpCtrl extends Controller {
       cUser(){
         return Meteor.user();
       }
-    });
+
+  });
 
     //this.autoScroll();
+  }
+
+  numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
   goToPage(pageName){
@@ -69,6 +75,12 @@ export default class hpCtrl extends Controller {
     //console.log('userId', userId);
     if(!userId) userId = Meteor.userId();
     return Meteor.users.findOne(userId).profile.name;
+  }
+
+  setupSettleTransfer(txID) {
+    Session.set('txID', txID);
+    // Redirect
+    this.$state.go('settleTransfer');    
   }
 }
 
