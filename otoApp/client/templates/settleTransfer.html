@@ -10,28 +10,29 @@
 
 	  <div class="list">
 
-			<div class="list list-inset">
-				<label class="item item-input">
-					<i class="icon ion-person placeholder-icon col col-10"></i>
-			    <span class="col col-80 small-text">{{ st.fromName(st.thisTransaction.from) }}</thisTransaction></span>
-			  </label>
-				<label class="item item-input">
-					<i class="icon ion-ios-bookmarks placeholder-icon col col-10"></i>
-					<span class="col col-80 small-text">{{ st.getAccount(st.thisTransaction.from) }}</span>
-				</label>
-			</div>
+			<div ng-repeat="tx in st.thisTransaction">
+				<div class="list list-inset">
+					<label class="item item-input">
+						<i class="icon ion-person placeholder-icon col col-10"></i>
+						<span class="col col-80 small-text">{{ st.fromName(tx.from) }}</thisTransaction></span>
+					</label>
+					<label class="item item-input">
+						<i class="icon ion-ios-bookmarks placeholder-icon col col-10"></i>
+						<span class="col col-80 small-text">{{ st.getAccount(tx.from) }}</span>
+					</label>
+				</div>
 
-			<div class="list list-inset">
-			  <label class="item item-input">
-					<i class="icon ion-filing placeholder-icon col col-10"></i>
-			    <span class="col col-80 small-text">5,000 Otonomos BCC Pte. Ltd. shares</span>
-			  </label>
-				<label class="item item-input">
-					<i class="icon ion-cash placeholder-icon col col-10"></i>
-			    <span class="col col-80 small-text">5,000 * $5 = $25,000</span>
-			  </label>
+				<div class="list list-inset">
+					<label class="item item-input">
+						<i class="icon ion-filing placeholder-icon col col-10"></i>
+						<span class="col col-80 small-text">{{ st.numberWithCommas(tx.amount) }} of {{ tx.assetName }} shares</span>
+					</label>
+					<label class="item item-input">
+						<i class="icon ion-cash placeholder-icon col col-10"></i>
+						<span class="col col-80 small-text">{{ st.numberWithCommas(tx.amount) }} * ${{ tx.price }} = $ {{ st.numberWithCommas(st.multiply(tx.price, tx.amount)) }}</span>
+					</label>
+				</div>
 			</div>
-
 
 			<div class="item">
 				<button class="button button-full button-dark">

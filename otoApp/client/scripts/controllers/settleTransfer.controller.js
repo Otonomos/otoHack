@@ -27,7 +27,7 @@ export default class stCtrl extends Controller {
       },
 
       thisTransaction() {
-        return Transactions.findOne(Session.get('txID'));
+        return Transactions.find(Session.get('txID'));
       }
     });
 
@@ -55,6 +55,13 @@ export default class stCtrl extends Controller {
     return BankAccounts.findOne({userId: user}).name;    
   }
 
+  numberWithCommas(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  multiply(a, b) {
+    return a * b;
+  }
 }
 
 stCtrl.$name = 'stCtrl';
