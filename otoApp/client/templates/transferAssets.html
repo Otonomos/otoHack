@@ -1,40 +1,44 @@
-<ion-view title="Transfer Assets">
+<ion-view >
+	<ion-nav-title>
+      <div class="page-title">Transfer Asset</div>
+      <div class="page-sub-title">DigiBank</div>
+  </ion-nav-title>
 	<ion-nav-buttons side="right">
-	  <button class="button button-clear"><img class="header-picture" ng-src="https://d1qb2nb5cznatu.cloudfront.net/startups/i/419665-4dbbf5083bd80c5e77de6b8a0c239ef9-medium_jpg.jpg?buster=1404525062"></button>
+	  <button class="button button-clear"><img class="header-picture" ng-src="https://scontent.xx.fbcdn.net/v/t1.0-1/p80x80/13938547_1171553186245226_3985211402204721399_n.jpg?oh=915851368d877ccf1c544b75c5f8794a&oe=58BD6E60"></button>
 	</ion-nav-buttons>
 	<ion-content>
+		<form>
 	  <div class="list">
-	  	<label class="item item-input">
-	  		<input type="text" placeholder="To">
-	  	</label>
-	  	  <!-- <ion-label>Assets</ion-label>
-	  	  <ion-select ng-model="chosenAsset" ng-repeat="asset in ta.userAssets">
-	  	    <ion-option value = "asset._id">{{asset.assetName}}</ion-option>
-	  	  </ion-select> -->
 
+			<div class="list list-inset">
+			  <label class="item item-input">
+					<i class="icon ion-person placeholder-icon"></i>
+			    <input type="text" placeholder="Transfer to who?">
+			  </label>
+			</div>
 
-	    <label class="item item-input item-select">
-	      <div class="input-label">
-	        Assets
-	      </div>
-	      <select ng-model="chosenAsset" ng-repeat="asset in ta.userAssets">
-	        <option value = "asset._id">{{asset.assetName}}</option>
-	      </select>
-	    </label>
-
-	  	<label class="item item-input">
-	  		<input type="text" placeholder="Amount">
-	  	</label>
-
-	  	<label class="item item-input">
-	  		<input type="text" placeholder="Price per share">
-	  	</label>
-	  	<label class="item item-input">
-	  		Total: $10000
-	  	</label>
+			<div class="list list-inset">
+			  <label class="item item-input">
+					<i class="icon ion-filing placeholder-icon"></i>
+			    <input type="text" placeholder="What Asset" value="OTONOMOS SHARES (OTO321)">
+			  </label>
+				<label class="item item-input">
+					<i class="icon ion-calculator placeholder-icon"></i>
+			    <input type="number" placeholder="How many?">
+			  </label>
+				<label class="item item-input">
+					<i class="icon ion-cash placeholder-icon"></i>
+			    <input type="number" placeholder="Price per asset?">
+			  </label>
+			</div>
 	  </div>
+
+		<button ion-button>
+			<ion-icon name="ion-android-send"></ion-icon>
+			Send now
+		</button>
+
+    </form>
 	</ion-content>
-	<ion-footer-bar>
-		
-	</ion-footer-bar>
+
 </ion-view>
