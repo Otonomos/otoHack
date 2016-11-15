@@ -5,9 +5,9 @@ Meteor.startup(function() {
   if (Meteor.users.find().count() != 0) return;
 
   Accounts.createUserWithPhone({
-    phone: '+972501234567',
+    phone: '+65826235377',
     profile: {
-      name: 'My friend 1'
+      name: 'Rick Behl'
     }
   });
 
