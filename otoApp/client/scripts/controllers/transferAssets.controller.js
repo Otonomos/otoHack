@@ -5,6 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { Controller } from 'angular-ecmascript/module-helpers';
 import { AssetWallets, Assets } from '../../../lib/collections';
 
+//gethqp6lx.southeastasia.cloudapp.azure.com
 export default class taCtrl extends Controller {
   constructor() {
     super(...arguments);
@@ -12,8 +13,9 @@ export default class taCtrl extends Controller {
     this.chatId = this.$stateParams.chatId;
     this.isIOS = Ionic.Platform.isWebView() && Ionic.Platform.isIOS();
     this.isCordova = Meteor.isCordova;
+    this.amount = 0;
     this.price = 0;
-    this.numOfShares = 0;
+    this.toUserId = "BXw9Mb2HxZn8B5yQ7";
 
     this.helpers({
       userAssets(){
@@ -22,7 +24,7 @@ export default class taCtrl extends Controller {
       },
 
       totalAmount(){
-        return this.price * this.numOfShares;
+        return this.price * this.amount;
       },
 
       cUser(){
@@ -45,7 +47,16 @@ export default class taCtrl extends Controller {
       okType: 'button-positive button-clear'
     });
   }
+
+  transfer(){
+    var self = this;
+    Meteor.call('initiateTransfer', this.toUserId, this.amount, this.price, function(err,res){
+      if(!err){
+        self.$state.go('homePage');
+      }
+    })
+  }
 }
 
 taCtrl.$name = 'taCtrl';
-taCtrl.$inject = ['$stateParams', '$timeout', '$ionicScrollDelegate', '$ionicPopup', '$log'];
+taCtrl.$inject = ['$stateParams', '$timeout', '$ionicScrollDelegate', '$ionicPopup', '$log', '$state'];
