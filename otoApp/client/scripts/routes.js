@@ -35,6 +35,11 @@ class RoutesConfig extends Config {
         templateUrl: 'client/templates/transferAssets.html',
         controller: 'taCtrl as ta'
       })
+      .state('settleTransfer', {
+        url: '/settleTransfer',
+        templateUrl: 'client/templates/settleTransfer.html',
+        controller: 'stCtrl as st'
+      })
       .state('confirmation', {
         url: '/confirmation/:phone',
         templateUrl: 'client/templates/confirmation.html',

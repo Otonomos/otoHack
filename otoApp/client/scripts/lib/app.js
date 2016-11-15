@@ -14,6 +14,7 @@ import { Meteor } from 'meteor/meteor';
 import ConfirmationCtrl from '../controllers/confirmation.controller';
 import taCtrl from '../controllers/transferAssets.controller';
 import hpCtrl from '../controllers/homePage.controller';
+import stCtrl from '../controllers/settleTransfer.controller';
 import LoginCtrl from '../controllers/login.controller';
 import ProfileCtrl from '../controllers/profile.controller';
 import SettingsCtrl from '../controllers/settings.controller';
@@ -39,6 +40,7 @@ new Loader(App)
   .load(EthCtrl)
   .load(LoginCtrl)
   .load(hpCtrl)
+  .load(stCtrl)
   .load(ProfileCtrl)
   .load(SettingsCtrl)
   .load(InputDirective)
