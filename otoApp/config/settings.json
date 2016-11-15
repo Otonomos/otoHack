@@ -1,9 +1,9 @@
-// DBS Hackathon settings file
 {
     "private": {
 	    "ethereum"  : {
 		    "host" : "http://gethqp6lx.southeastasia.cloudapp.azure.com:8545"
-		},
+		  },
+    "disableSolcCompile" : false,
 		"rubbishAccount" : "head please also core vivid polar thumb run output blade verify arrow",
 		"gasMultiplier" : 10
 	},

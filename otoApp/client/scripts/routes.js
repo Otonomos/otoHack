@@ -11,6 +11,44 @@ class RoutesConfig extends Config {
 
   configure() {
     this.$stateProvider
+      .state('tab', {
+        url: '/tab',
+        abstract: true,
+        templateUrl: 'client/templates/tabs.html',
+        resolve: {
+          user: this.isAuthorized,
+          chats() {
+            return Meteor.subscribe('chats');
+          }
+        }
+      })
+      .state('tab.chats', {
+        url: '/chats',
+        views: {
+          'tab-chats': {
+            templateUrl: 'client/templates/chats.html',
+            controller: 'ChatsCtrl as chats'
+          }
+        }
+      })
+      .state('tab.chat', {
+        url: '/chats/:chatId',
+        views: {
+          'tab-chats': {
+            templateUrl: 'client/templates/chat.html',
+            controller: 'ChatCtrl as chat'
+          }
+        }
+      })
+      .state('tab.eth', {
+        url: '/eth',
+        views: {
+          'tab-chats': {
+            templateUrl: 'client/templates/eth.html',
+            controller: 'EthCtrl as eth'
+          }
+        }
+      })
       .state('login', {
         url: '/login',
         templateUrl: 'client/templates/login.html',

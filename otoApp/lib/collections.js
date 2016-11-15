@@ -12,3 +12,5 @@ export const Transactions = new Mongo.Collection('Transactions');
 //fromAddress, toAddress, timeUpdated, assetAddress, amount
 export const AssetWallets = new Mongo.Collection('AssetWallets');
 //userId, assetAddress, lastUpdated, amount
+export const SmartContracts = new Mongo.Collection('smartContracts');
+
