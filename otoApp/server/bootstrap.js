@@ -5,7 +5,7 @@ const fs = require('fs');
 solc = require('solc');
 
 Meteor.startup(function() {
-
+  /*
   var solFiles = fs.readdirSync(process.env.PWD+'/contracts');
   console.log('s: ',solFiles);
    solFiles = _.filter(solFiles, function(solFile){ return solFile.endsWith('.sol')});
@@ -43,7 +43,8 @@ Meteor.startup(function() {
   } else {
     console.log('Development Flag Set - NOT COMPILING SOLIDITY CONTRACTS!!!');
   }
-
+  */
+  
   if (Meteor.users.find().count() != 0) return;
 
   Accounts.createUserWithPhone({

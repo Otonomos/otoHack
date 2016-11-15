@@ -17,6 +17,7 @@
     "bcrypt": "^0.8.7",
     "build": "^0.1.4",
     "cordova": "^6.4.0",
+    "eth-lightwallet": "^1.5.2",
     "ionic": "^2.1.8",
     "ionic-scripts": "0.0.1",
     "meteor-node-stubs": "^0.2.4",
