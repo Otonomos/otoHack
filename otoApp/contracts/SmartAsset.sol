@@ -26,9 +26,13 @@ contract SmartAsset {
     }
 
     function initiateAssetTransfer(uint _amount, address _toAddress, string _DBSAccountNo, address _oracleContractAddress) {
+        log('1');
         if (assetTable[msg.sender]>=_amount && pendingTxns[_DBSAccountNo].state==0) {
+            log('2');
             pendingTxns[_DBSAccountNo] = assetTransferTxn(msg.sender, _toAddress, _amount, _DBSAccountNo, 1, _oracleContractAddress);
+            log('3');
             DBSAccountOracle(_oracleContractAddress).registerAssetToAccount(_DBSAccountNo);
+            log('4');
         }else{
           log('Not enough assets to transfer or pre-existing pending transaction');
         }
