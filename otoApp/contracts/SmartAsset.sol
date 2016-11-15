@@ -6,6 +6,8 @@ contract SmartAsset {
     uint assetTableIndex;
 
     event log(string something);
+    event logA(address something);
+    event logI(uint something);
 
     struct assetTransferTxn {
         address from;
@@ -26,13 +28,9 @@ contract SmartAsset {
     }
 
     function initiateAssetTransfer(uint _amount, address _toAddress, string _DBSAccountNo, address _oracleContractAddress) {
-        log('1');
         if (assetTable[msg.sender]>=_amount && pendingTxns[_DBSAccountNo].state==0) {
-            log('2');
             pendingTxns[_DBSAccountNo] = assetTransferTxn(msg.sender, _toAddress, _amount, _DBSAccountNo, 1, _oracleContractAddress);
-            log('3');
             DBSAccountOracle(_oracleContractAddress).registerAssetToAccount(_DBSAccountNo);
-            log('4');
         }else{
           log('Not enough assets to transfer or pre-existing pending transaction');
         }
@@ -40,8 +38,12 @@ contract SmartAsset {
     function finalizeAssetTransfer(string _DBSAccountNo) {
         if (pendingTxns[_DBSAccountNo].state==1 && pendingTxns[_DBSAccountNo].oracleContractAddress == msg.sender) {
             assetTable[pendingTxns[_DBSAccountNo].from] -= pendingTxns[_DBSAccountNo].assetAmount;
+            /*logI(pendingTxns[_DBSAccountNo].assetAmount);
+            logA(pendingTxns[_DBSAccountNo].from);
+            logA(pendingTxns[_DBSAccountNo].to);*/
             assetTable[pendingTxns[_DBSAccountNo].to] += pendingTxns[_DBSAccountNo].assetAmount;
             delete pendingTxns[_DBSAccountNo];
+            log('Transfer successful');
         }else{
           log('No pending txs found or wrong oracle address');
         }
@@ -57,5 +59,11 @@ contract SmartAsset {
 
     function getIndex() constant returns (uint){
       return assetTableIndex;
+    }
+
+    function getAmounts(string _DBSAccountNo) constant returns (uint, uint){
+      uint from = assetTable[pendingTxns[_DBSAccountNo].from];
+      uint to = assetTable[pendingTxns[_DBSAccountNo].to];
+      return (from, to);
     }
 }
