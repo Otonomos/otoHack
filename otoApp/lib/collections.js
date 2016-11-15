@@ -3,7 +3,6 @@ import { Mongo } from 'meteor/mongo';
 export const Chats = new Mongo.Collection('chats');
 export const Messages = new Mongo.Collection('messages');
 
-
 export const Assets       = new Mongo.Collection('Assets');
 //Asset Name, assetAddress
 export const BankAccounts = new Mongo.Collection('BankAccounts');
@@ -14,4 +13,4 @@ export const AssetWallets = new Mongo.Collection('AssetWallets');
 //userId, assetAddress, lastUpdated, amount
 export const SmartContracts = new Mongo.Collection('smartContracts');
 // address for the Oracle smart contract
-export const Oracles = new Mongo.Collection('oracles');
+export const ContractAddresses = new Mongo.Collection('contractAddresses');

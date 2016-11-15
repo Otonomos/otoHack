@@ -1,6 +1,6 @@
 var lightwallet = require('eth-lightwallet');
 import coder from 'web3/lib/solidity/coder';
-import { Oracles } from '../lib/collections';
+import { ContractAddresses } from '../lib/collections';
 Fiber = Npm.require('fibers');
 
 var web3 = new Web3(new Web3.providers.HttpProvider(Meteor.settings.public.ethereum.host));
@@ -88,7 +88,12 @@ lightwallet.keystore.deriveKeyFromPassword('mypassword', function(err, pwDerived
 
     try{
       Fiber(function(){
-        Oracles.insert({oracleAddress:contractData.addr}, function(e,r){
+        ContractAddresses.deleteMany({}, function(e,r){
+          console.log('erer: ',e,r);
+        });
+        ContractAddresses.insert({
+          type: 'Oracle',
+          address:'0x'+contractData.addr}, function(e,r){
           console.log('er: ',e,r);
         });
       }).run();
@@ -118,6 +123,13 @@ lightwallet.keystore.deriveKeyFromPassword('mypassword', function(err, pwDerived
           // sendingAddr is needed to compute the contract address
           var contractData = txutils.createContractTx(sendingAddr, txOptions)
           var signedTxn = signing.signTx(keystore, pwDerivedKey, contractData.tx, sendingAddr)
+          Fiber(function(){
+            ContractAddresses.insert({
+              type: 'Asset',
+              address:'0x'+contractData.addr}, function(e,r){
+              console.log('er: ',e,r);
+            });
+          }).run();
         }catch(e){
           console.log('3',e);
         }
@@ -169,65 +181,69 @@ lightwallet.keystore.deriveKeyFromPassword('mypassword', function(err, pwDerived
 Meteor.methods({
 
   initiateAssetTransfer: function(){
-    var oracleAddress = Oracles.findOne({}).oracleAddress;
-    console.log(oracleAddress);
-    return false;
+    var assetAddress;
+    Fiber(function(){
+      assetAddress = ContractAddresses.findOne({type: 'Asset'}).address;
+      console.log('assetAddress',assetAddress);
+    }).run();
     var nonce = web3.eth.getTransactionCount(keystore.getAddresses()[0], "pending");
-    console.log('follow-up nonce: ',nonce);
+    console.log('initiate transfer nonce: ',nonce);
     var params = [25,
                   0x2963afb32be0d6e88e0919264a041037d29331d3, // again coffee spin firm medal math whip rug sport expose simple mass
                   '01010101',
-                  oracleAddress,
-
-                 ]
+                  oracleAddress
+                ];
     var data = oracleCode + encodeConstructorParams(smartAssetABI,params);
     txOptions = {
         gasPrice: parseInt(web3.eth.gasPrice),
         gasLimit: 4000000,
         nonce: nonce,
-        data: data
+        to: assetAddress
     }
     try{
       // sendingAddr is needed to compute the contract address
-      var contractData = txutils.createContractTx(sendingAddr, txOptions)
-      var signedTxn = signing.signTx(keystore, pwDerivedKey, contractData.tx, sendingAddr)
+      var sigData = txutils.functionTx(smartAssetABI, 'initiateAssetTransfer', params, txOptions);
+      var signedTxn = signing.signTx(keystore, pwDerivedKey, sigData.tx, sendingAddr)
     }catch(e){
-      console.log('3',e);
+      console.log('initiateAssetTransfer error: ',e);
     }
     web3.eth.sendRawTransaction(signedTxn,function(error,result){
       if(error){
-        console.log('SendTxn 2 error: ',error);
+        console.log('initiateAssetTransfer error: ',error);
       }else{
-        console.log('SendTxn 2 result: ',result);
+        console.log('initiateAssetTransfer result: ',result);
       }
     });
   },
+
   finalizeAssetTransfer: function(){
+    var oracleAddress;
+    Fiber(function(){
+      oracleAddress = ContractAddresses.findOne({type: 'Oracle'}).address;
+      console.log('oracleAddress ', oracleAddress);
+    }).run();
     var nonce = web3.eth.getTransactionCount(keystore.getAddresses()[0], "pending");
-    console.log('follow-up nonce: ',nonce);
-    var params = [string2Bin('assetInfo'),
-                  [0xa3cff205242f753f8dcb65d10e879ab1642f02a3],
-                  [50]
-                 ]
+    console.log('finalize transfer nonce: ',nonce);
+    var params = ['01010101'];
     var data = oracleCode + encodeConstructorParams(smartAssetABI,params);
     txOptions = {
         gasPrice: parseInt(web3.eth.gasPrice),
         gasLimit: 4000000,
         nonce: nonce,
-        data: data
+        to: oracleAddress
     }
     try{
       // sendingAddr is needed to compute the contract address
-      var contractData = txutils.createContractTx(sendingAddr, txOptions)
-      var signedTxn = signing.signTx(keystore, pwDerivedKey, contractData.tx, sendingAddr)
+      var sigData = txutils.functionTx(oracleABI, 'updateAsset', params, txOptions);
+      var signedTxn = signing.signTx(keystore, pwDerivedKey, sigData.tx, sendingAddr)
     }catch(e){
-      console.log('3',e);
+      console.log('finalizeAssetTransfer error: ',e);
     }
     web3.eth.sendRawTransaction(signedTxn,function(error,result){
       if(error){
-        console.log('SendTxn 2 error: ',error);
+        console.log('finalizeAssetTransfer error: ',error);
       }else{
-        console.log('SendTxn 2 result: ',result);
+        console.log('finalizeAssetTransfer result: ',result);
       }
     });
   },
