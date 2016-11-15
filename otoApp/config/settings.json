@@ -1,0 +1,19 @@
+// DBS Hackathon settings file
+{
+    "private": {
+	    "ethereum"  : {
+		    "host" : "http://gethqp6lx.southeastasia.cloudapp.azure.com:8545"
+		},
+		"rubbishAccount" : "head please also core vivid polar thumb run output blade verify arrow",
+		"gasMultiplier" : 10
+	},
+	"public": {
+		"isDevelopmentServer" : true,
+		"ethereum" : {
+			"host" : "http://0.0.0.0:8545",
+			"password" : "otonomos",
+			"contractGasLimit" : 8000000
+		},
+		"gasAmtTxns" : 3000000
+	}
+}
