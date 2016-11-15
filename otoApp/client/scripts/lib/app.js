@@ -11,20 +11,15 @@ import Loader from 'angular-ecmascript/module-loader';
 import { Meteor } from 'meteor/meteor';
 
 // Modules
-import ChatsCtrl from '../controllers/chats.controller';
-import ChatCtrl from '../controllers/chat.controller';
 import ConfirmationCtrl from '../controllers/confirmation.controller';
 import taCtrl from '../controllers/transferAssets.controller';
+import hpCtrl from '../controllers/homePage.controller';
+import stCtrl from '../controllers/settleTransfer.controller';
 import LoginCtrl from '../controllers/login.controller';
-import NewChatCtrl from '../controllers/new-chat.controller';
 import ProfileCtrl from '../controllers/profile.controller';
 import SettingsCtrl from '../controllers/settings.controller';
 import EthCtrl from '../controllers/eth.controller';
 import InputDirective from '../directives/input.directive';
-import CalendarFilter from '../filters/calendar.filter';
-import ChatNameFilter from '../filters/chat-name.filter';
-import ChatPictureFilter from '../filters/chat-picture.filter';
-import NewChatService from '../services/new-chat.service';
 import Routes from '../routes';
 
 // Blockchain
@@ -41,20 +36,14 @@ Angular.module(App, [
 ]);
 
 new Loader(App)
-  .load(ChatsCtrl)
-  .load(ChatCtrl)
   .load(taCtrl)
   .load(EthCtrl)
-  .load(ConfirmationCtrl)
   .load(LoginCtrl)
-  .load(NewChatCtrl)
+  .load(hpCtrl)
+  .load(stCtrl)
   .load(ProfileCtrl)
   .load(SettingsCtrl)
   .load(InputDirective)
-  .load(CalendarFilter)
-  .load(ChatNameFilter)
-  .load(ChatPictureFilter)
-  .load(NewChatService)
   .load(Routes);
 
 // Startup

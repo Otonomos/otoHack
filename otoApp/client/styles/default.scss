@@ -27,7 +27,7 @@ font-family: 'Lato', sans-serif;
    margin-top: - 25px;
    color: #000;
    font-weight: 600;
-   text-align: left;
+   //text-align: left;
    font-size: 15px;
    text-transform: uppercase;
    padding: 5px 0;
@@ -131,21 +131,5 @@ font-family: 'Lato', sans-serif;
     right: 7px;
     color: gray;
     font-size: 12px;
-  }
-}
-
-.footer-chat {
-  .item-input-wrapper {
-    background-color: #FFF;
-  }
-
-  .button.button-icon {
-    margin: 0 10px;
-  }
-
-  .buttons-seperator {
-    color: gray;
-    font-size: 18px;
-    line-height: 32px;
   }
 }

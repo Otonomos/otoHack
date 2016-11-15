@@ -1,11 +1,11 @@
 import Ionic from 'ionic-scripts';
 import { _ } from 'meteor/underscore';
 import { Meteor } from 'meteor/meteor';
-//
+//  
 import { Controller } from 'angular-ecmascript/module-helpers';
 import { AssetWallets, Assets } from '../../../lib/collections';
 
-export default class taCtrl extends Controller {
+export default class hpCtrl extends Controller {
   constructor() {
     super(...arguments);
 
@@ -43,5 +43,5 @@ export default class taCtrl extends Controller {
   }
 }
 
-taCtrl.$name = 'taCtrl';
-taCtrl.$inject = ['$stateParams', '$timeout', '$ionicScrollDelegate', '$ionicPopup', '$log'];
+hpCtrl.$name = 'hpCtrl';
+hpCtrl.$inject = ['$stateParams', '$timeout', '$ionicScrollDelegate', '$ionicPopup', '$log'];

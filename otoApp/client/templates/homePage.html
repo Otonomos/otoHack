@@ -1,0 +1,67 @@
+<ion-view title="Home">
+	<ion-nav-buttons side="right">
+	  <button class="button button-clear"><img class="header-picture" ng-src="https://d1qb2nb5cznatu.cloudfront.net/startups/i/419665-4dbbf5083bd80c5e77de6b8a0c239ef9-medium_jpg.jpg?buster=1404525062"></button>
+	</ion-nav-buttons>
+	<ion-content>
+	  <div class="list">
+
+	    <div class="item item-divider">
+	      Accounts
+	    </div>
+
+	    <a class="item" href="#">
+	      DBS eSavings Plus xxx-xxxxx90
+	    </a>
+
+	    <div class="item item-divider">
+	      Assets
+	    </div>
+
+	    <div ng-repeat="asset in hp.userAssets">
+	    	<a class="item" href="#">
+	    	  {{asset.assetName}}
+	    	</a>
+	    </div>
+
+	    <div class="item item-divider">
+	      Notifications
+	    </div>
+			
+	    <a class="item item-text-wrap">
+	    	<div class="row">
+	    		<div class="col col-80">
+	    			Rick wants to transfer 1000 shares to you at $5 each
+	    		</div>
+	    		<div class="col col-20">
+	    			<button class="button button-assertive">Pay</button> 
+	    		</div>
+	    	</div>
+	    </a>
+			
+			<a class="item item-text-wrap" href = "#">
+				<div class="row">
+					<div class="col col-80">
+						Rick wants to transfer 1000 shares to you at $5 each
+					</div>
+				</div>
+			</a>
+
+			<a class="item item-text-wrap" href = "#">
+				<div class="row">
+					<div class="col col-80">
+						Rick wants to transfer 1000 shares to you at $5 each
+					</div>
+					<div class="col col-20">
+						<button class="button button-assertive">Pay</button> 
+					</div>
+				</div>
+			</a>
+	  </div>
+ 
+	</ion-content>
+
+
+			
+
+
+</ion-view>
