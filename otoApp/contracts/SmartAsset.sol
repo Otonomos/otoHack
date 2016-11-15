@@ -62,8 +62,8 @@ contract SmartAsset {
     }
 
     function getAmounts(string _DBSAccountNo) constant returns (uint, uint){
-      uint from = assetTable[pendingTxns[_DBSAccountNo].from];
-      uint to = assetTable[pendingTxns[_DBSAccountNo].to];
+      uint from = assetTable[0xa3cff205242f753f8dcb65d10e879ab1642f02a3];
+      uint to = assetTable[0x2963afb32be0d6e88e0919264a041037d29331d3];
       return (from, to);
     }
 }
