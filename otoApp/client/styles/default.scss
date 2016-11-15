@@ -28,7 +28,7 @@ font-family: 'Lato', sans-serif;
 }
 
 .back-button{
-  color: #fff;
+  color: #fff !important;
     top: 12px;
 }
 
@@ -86,6 +86,11 @@ font-family: 'Lato', sans-serif;
     display: table;
     clear: both;
   }
+}
+
+.small-text{
+  font-style: italic;
+font-size: 14px;
 }
 
 .message {
