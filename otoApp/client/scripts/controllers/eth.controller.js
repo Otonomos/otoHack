@@ -11,7 +11,6 @@ export default class EthCtrl extends Controller {
             let acctBal = [];
 
             try {
-
                 allAccounts = web3.eth.accounts;
                 allAccounts.map((acct, idx) => {
                     let newAcct = {};
