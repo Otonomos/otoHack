@@ -54,7 +54,7 @@ class RoutesConfig extends Config {
         }
       })
 
-    this.$urlRouterProvider.otherwise('transferAssets');
+    this.$urlRouterProvider.otherwise('homePage');
   }
 
   isAuthorized($auth) {

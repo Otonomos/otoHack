@@ -29,7 +29,9 @@ export default class hpCtrl extends Controller {
     //this.autoScroll();
   }
 
-
+  goToPay(){
+    this.$state.go('settleTransfer');
+  }
 
   handleError(err) {
     if (err.error == 'cancel') return;
@@ -44,4 +46,4 @@ export default class hpCtrl extends Controller {
 }
 
 hpCtrl.$name = 'hpCtrl';
-hpCtrl.$inject = ['$stateParams', '$timeout', '$ionicScrollDelegate', '$ionicPopup', '$log'];
+hpCtrl.$inject = ['$stateParams', '$timeout', '$ionicScrollDelegate', '$ionicPopup', '$log', '$state'];
