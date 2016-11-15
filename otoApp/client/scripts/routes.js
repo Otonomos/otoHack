@@ -25,6 +25,11 @@ class RoutesConfig extends Config {
         templateUrl: 'client/templates/login.html',
         controller: 'LoginCtrl as logger'
       })
+      .state('homePage',{
+        url: '/homePage',
+        templateUrl: 'client/templates/homePage.html',
+        controller: 'hpCtrl as hp'
+      })
       .state('transferAssets', {
         url: '/transferAssets',
         templateUrl: 'client/templates/transferAssets.html',

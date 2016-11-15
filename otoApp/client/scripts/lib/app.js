@@ -13,6 +13,7 @@ import { Meteor } from 'meteor/meteor';
 // Modules
 import ConfirmationCtrl from '../controllers/confirmation.controller';
 import taCtrl from '../controllers/transferAssets.controller';
+import hpCtrl from '../controllers/homePage.controller';
 import LoginCtrl from '../controllers/login.controller';
 import ProfileCtrl from '../controllers/profile.controller';
 import SettingsCtrl from '../controllers/settings.controller';
@@ -37,6 +38,7 @@ new Loader(App)
   .load(taCtrl)
   .load(EthCtrl)
   .load(LoginCtrl)
+  .load(hpCtrl)
   .load(ProfileCtrl)
   .load(SettingsCtrl)
   .load(InputDirective)
