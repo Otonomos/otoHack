@@ -25,7 +25,7 @@ import Routes from '../routes';
 // Blockchain
 import Web3 from 'web3';
 
-const App = 'Whatsapp';
+const App = 'OtoHack Ye!';
 
 // App
 Angular.module(App, [
@@ -39,6 +39,7 @@ new Loader(App)
   .load(taCtrl)
   .load(EthCtrl)
   .load(LoginCtrl)
+  .load(ConfirmationCtrl)
   .load(hpCtrl)
   .load(stCtrl)
   .load(ProfileCtrl)

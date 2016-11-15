@@ -1,44 +1,52 @@
-<ion-view title="Initiate new transfer">
+<ion-view >
+	<ion-nav-title align-title="left">
+      <div class="page-title" align-title="left">Transfer Asset</div>
+      <div class="page-sub-title">Digital Bank Singapore</div>
+  </ion-nav-title>
 	<ion-nav-buttons side="right">
-	  <button class="button button-clear"><img class="header-picture" ng-src="https://d1qb2nb5cznatu.cloudfront.net/startups/i/419665-4dbbf5083bd80c5e77de6b8a0c239ef9-medium_jpg.jpg?buster=1404525062"></button>
+	  <button class="button button-clear"><img class="header-picture" ng-src="{{ta.cUser.profile.pic}}"></button>
 	</ion-nav-buttons>
 	<ion-content>
+		<form>
 	  <div class="list">
-	  	<label class="item item-input">
-	  		<input type="text" placeholder="To">
-	  	</label>
-	  	  <!-- <ion-label>Assets</ion-label>
-	  	  <ion-select ng-model="chosenAsset" ng-repeat="asset in ta.userAssets">
-	  	    <ion-option value = "asset._id">{{asset.assetName}}</ion-option>
-	  	  </ion-select> -->
+
+			<div class="list list-inset">
+			  <label class="item item-select">
+					<i class="icon ion-person placeholder-icon"></i>
+			    <select>
+			    	<option>Paul D.</option>
+			    </select>
+			  </label>
+			</div>
+
+			<div class="list list-inset">
+			  <label class="item item-input">
+					<i class="icon ion-filing placeholder-icon"></i>
+			    <input type="text" placeholder="What Asset" value="Otonomos BCC. Pte. Ltd. shares">
+			  </label>
+				<label class="item item-input">
+					<i class="icon ion-calculator placeholder-icon"></i>
+			    <input type="number" placeholder="How many?">
+			  </label>
+				<label class="item item-input">
+					<i class="icon ion-cash placeholder-icon"></i>
+			    <input type="number" placeholder="Price per asset?">
+			  </label>
+			</div>
+
+			<div class="item">
 
 
-	    <label class="item item-input item-select">
-	      <div class="input-label">
-	        Assets
-	      </div>
-	      <select ng-model="chosenAsset" ng-repeat="asset in ta.userAssets">
-	        <option value = "asset._id">{{asset.assetName}}</option>
-	      </select>
-	    </label>
-
-	  	<label class="item item-input">
-	  		<input type="text" placeholder="Amount">
-	  	</label>
-
-	  	<label class="item item-input">
-	  		<input type="text" placeholder="Price per share">
-	  	</label>
-	  	<label class="item item-input">
-	  		Total: ${{totalAmount}}
-	  	</label>
-	  	<button class="button button-positive button-block">Initiate Transfer</button>
+				<button class="button button-full button-dark">
+					<i class="icon ion-android-send placeholder-icon"></i>
+				   Send now
+				</button>
+			</div>
 	  </div>
- 
+
+
+
+    </form>
 	</ion-content>
-
-
-			
-
 
 </ion-view>
