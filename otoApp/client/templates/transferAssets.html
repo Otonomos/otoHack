@@ -1,0 +1,40 @@
+<ion-view title="Transfer Assets">
+	<ion-nav-buttons side="right">
+	  <button class="button button-clear"><img class="header-picture" ng-src="https://d1qb2nb5cznatu.cloudfront.net/startups/i/419665-4dbbf5083bd80c5e77de6b8a0c239ef9-medium_jpg.jpg?buster=1404525062"></button>
+	</ion-nav-buttons>
+	<ion-content>
+	  <div class="list">
+	  	<label class="item item-input">
+	  		<input type="text" placeholder="To">
+	  	</label>
+	  	  <!-- <ion-label>Assets</ion-label>
+	  	  <ion-select ng-model="chosenAsset" ng-repeat="asset in ta.userAssets">
+	  	    <ion-option value = "asset._id">{{asset.assetName}}</ion-option>
+	  	  </ion-select> -->
+
+
+	    <label class="item item-input item-select">
+	      <div class="input-label">
+	        Assets
+	      </div>
+	      <select ng-model="chosenAsset" ng-repeat="asset in ta.userAssets">
+	        <option value = "asset._id">{{asset.assetName}}</option>
+	      </select>
+	    </label>
+
+	  	<label class="item item-input">
+	  		<input type="text" placeholder="Amount">
+	  	</label>
+
+	  	<label class="item item-input">
+	  		<input type="text" placeholder="Price per share">
+	  	</label>
+	  	<label class="item item-input">
+	  		Total: $10000
+	  	</label>
+	  </div>
+	</ion-content>
+	<ion-footer-bar>
+		
+	</ion-footer-bar>
+</ion-view>

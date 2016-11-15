@@ -14,6 +14,7 @@ import { Meteor } from 'meteor/meteor';
 import ChatsCtrl from '../controllers/chats.controller';
 import ChatCtrl from '../controllers/chat.controller';
 import ConfirmationCtrl from '../controllers/confirmation.controller';
+import taCtrl from '../controllers/transferAssets.controller';
 import LoginCtrl from '../controllers/login.controller';
 import NewChatCtrl from '../controllers/new-chat.controller';
 import ProfileCtrl from '../controllers/profile.controller';
@@ -38,6 +39,7 @@ Angular.module(App, [
 new Loader(App)
   .load(ChatsCtrl)
   .load(ChatCtrl)
+  .load(taCtrl)
   .load(ConfirmationCtrl)
   .load(LoginCtrl)
   .load(NewChatCtrl)
