@@ -3,7 +3,7 @@ import { _ } from 'meteor/underscore';
 import { Meteor } from 'meteor/meteor';
 //  
 import { Controller } from 'angular-ecmascript/module-helpers';
-import { AssetWallets, Assets } from '../../../lib/collections';
+import { AssetWallets, Assets, BankAccounts, Transactions } from '../../../lib/collections';
 
 export default class hpCtrl extends Controller {
   constructor() {
@@ -23,13 +23,36 @@ export default class hpCtrl extends Controller {
 
       totalAmount(){
         return this.price * this.numOfShares;
+      },
+
+      bankAccounts(){
+        return BankAccounts.find({userId: Meteor.userId()});
+      },
+
+      assetWallets(){
+        return AssetWallets.find({userId: Meteor.userId()});
+      },
+
+      transactions(){
+        console.log(Transactions.find({to: Meteor.userId()}).fetch())
+        return Transactions.find({to: Meteor.userId()});
+      },
+
+      cUser(){
+        return Meteor.user();
       }
     });
 
     //this.autoScroll();
   }
 
+  goToPage(pageName){
+    this.$state.go(pageName);
+  }
 
+  multiply(a,b){
+    return a*b;
+  }
 
   handleError(err) {
     if (err.error == 'cancel') return;
@@ -41,7 +64,13 @@ export default class hpCtrl extends Controller {
       okType: 'button-positive button-clear'
     });
   }
+
+  fromName(userId){
+    //console.log('userId', userId);
+    if(!userId) userId = Meteor.userId();
+    return Meteor.users.findOne(userId).profile.name;
+  }
 }
 
 hpCtrl.$name = 'hpCtrl';
-hpCtrl.$inject = ['$stateParams', '$timeout', '$ionicScrollDelegate', '$ionicPopup', '$log'];
+hpCtrl.$inject = ['$stateParams', '$timeout', '$ionicScrollDelegate', '$ionicPopup', '$log', '$state'];

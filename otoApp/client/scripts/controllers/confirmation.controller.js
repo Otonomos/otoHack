@@ -14,7 +14,7 @@ export default class ConfirmationCtrl extends Controller {
 
     Accounts.verifyPhone(this.phone, this.code, (err) => {
       if (err) return this.handleError(err);
-      this.$state.go('profile');
+      this.$state.go('homePage');
     });
   }
 
