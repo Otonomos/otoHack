@@ -1,11 +1,6 @@
 var lightwallet = require('eth-lightwallet');
-
-if (typeof web3 !== 'undefined') {
-  web3 = new Web3(web3.currentProvider);
-} else {
-  // set the provider you want from Web3.providers
-  web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-}
+import coder from 'web3/lib/solidity/coder';
+var web3 = new Web3(new Web3.providers.HttpProvider(Meteor.settings.public.ethereum.host));
 
 var txutils = lightwallet.txutils
 var signing = lightwallet.signing
@@ -22,30 +17,70 @@ var oracleCode     = '60606040525b33600060006101000a81548173ffffffffffffffffffff
 var seed = 'cactus diesel absent fun rate eye wagon collect motion energy siege trust' // 0x38955094606195f5ae80afbe057f29e67aefc6cd
 
 lightwallet.keystore.deriveKeyFromPassword('mypassword', function(err, pwDerivedKey) {
-  console.log(pwDerivedKey);
-  var keystore = new lightwallet.keystore(seed, pwDerivedKey)
-  keystore.generateNewAddress(pwDerivedKey);
+  if( pwDerivedKey ){
+    try{
+      var keystore = new lightwallet.keystore(seed, pwDerivedKey);
+      keystore.generateNewAddress(pwDerivedKey);
 
-  var sendingAddr = keystore.getAddresses()[0]
-  var nonce = web3.eth.getTransactionCount(keystore.getAddresses()[0], "pending");
-  console.log(nonce);
+      var sendingAddr = keystore.getAddresses()[0];
+      console.log(sendingAddr);
+      try{
+        var nonce = web3.eth.getTransactionCount(keystore.getAddresses()[0], "pending");
+      }catch(e){
+        console.log('0',e);
+      }
+      console.log(nonce);
 
-  // The transaction data follows the format of ethereumjs-tx
-  txOptions = {
-      gasPrice: parseInt(web3.eth.gasPrice),
-      gasLimit: 4000000,
-      nonce: nonce,
-      data: oracleCode
+      function encodeConstructorParams (abi, params) {
+        //console.log(params.length)
+          return abi.filter(function (json) {
+              return json.type === 'constructor' && json.inputs.length === params.length;
+          }).map(function (json) {
+              return json.inputs.map(function (input) {
+                  return input.type;
+              });
+          }).map(function (types) {
+            //console.log('types:'+types+ ' / params: '+params);
+            //console.log('coder.encodeParams(types, params) : '+coder.encodeParams(types, params));
+              return coder.encodeParams(types, params);
+          })[0] || '';
+      };
+
+      var data = oracleCode + encodeConstructorParams(oracleABI,[])
+    }catch(e){
+      console.log('1',e);
+    }
+
+    // The transaction data follows the format of ethereumjs-tx
+    txOptions = {
+        gasPrice: parseInt(web3.eth.gasPrice),
+        gasLimit: 4000000,
+        nonce: nonce,
+        data: data
+    }
+    console.log('2',txOptions);
+
+    try{
+      // sendingAddr is needed to compute the contract address
+      var contractData = txutils.createContractTx(sendingAddr, txOptions)
+      var signedTxn = signing.signTx(keystore, pwDerivedKey, contractData.tx, sendingAddr)
+    }catch(e){
+      console.log('3',e);
+    }
+
+    console.log('Signed Contract creation TX: ' + signedTxn)
+    console.log('')
+    console.log('ORACLE contract address: 0x' + contractData.addr)
+    console.log('')
+
+    web3.eth.sendRawTransaction(signedTxn,function(error,result){
+		  if(!error){
+		  	console.log('SendTxn result: ',result);
+		  }else{
+				console.log('SendTxn error: ',error);
+		  }
+		});
   }
-
-  // sendingAddr is needed to compute the contract address
-  var contractData = txutils.createContractTx(sendingAddr, txOptions)
-  var signedTx = signing.signTx(keystore, pwDerivedKey, contractData.tx, sendingAddr)
-
-  console.log('Signed Contract creation TX: ' + signedTx)
-  console.log('')
-  console.log('Contract Address: ' + contractData.addr)
-  console.log('')
 
   /*
   // TX to register the key 123
