@@ -40,6 +40,15 @@ class RoutesConfig extends Config {
           }
         }
       })
+      .state('tab.eth', {
+        url: '/eth',
+        views: {
+          'tab-chats': {
+            templateUrl: 'client/templates/eth.html',
+            controller: 'EthCtrl as eth'
+          }
+        }
+      })
       .state('login', {
         url: '/login',
         templateUrl: 'client/templates/login.html',

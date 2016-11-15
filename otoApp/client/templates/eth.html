@@ -1,0 +1,18 @@
+<ion-view title="Balances">
+  <ion-nav-buttons side="right">
+  </ion-nav-buttons>
+  <ion-content class="chat" delegate-handle="chatScroll">
+  
+    <div ng-repeat="acct in eth.accountBalances" class="message-wrapper">
+      <div class="card">
+        <div class="item item-divider">
+          <span>Account: {{ acct.accountAddress }} </span>
+        </div>
+        <div class="item item-text-wrap">
+          {{ acct.accountBalance }}
+        </div>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>
