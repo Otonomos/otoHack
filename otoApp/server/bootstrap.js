@@ -1,6 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
+import { SmartContracts } from '../lib/collections';
 const fs = require('fs');
+solc = require('solc');
 
 Meteor.startup(function() {
 
@@ -17,7 +19,6 @@ Meteor.startup(function() {
    if (!Meteor.settings.private.disableSolcCompile) {
      console.log('aaaa');
      // Migrate to Meteor 1.3+ => currently an issue with solc under Meteor 1.3+ so continue to use meteorhacks:npm for now
-     var solc = Meteor.npmRequire('solc');
 
   	 var output = solc.compile({sources: input}, 1);
   	 console.log(output);
@@ -42,8 +43,6 @@ Meteor.startup(function() {
   } else {
     console.log('Development Flag Set - NOT COMPILING SOLIDITY CONTRACTS!!!');
   }
-
-});
 
   if (Meteor.users.find().count() != 0) return;
 
