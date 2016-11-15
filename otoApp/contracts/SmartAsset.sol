@@ -54,4 +54,8 @@ contract SmartAsset {
           log('No pending tx or not tx sender');
         }
     }
+
+    function getIndex() constant returns (uint){
+      return assetTableIndex;
+    }
 }
