@@ -6,6 +6,32 @@ var txutils = lightwallet.txutils
 var signing = lightwallet.signing
 var encryption = lightwallet.encryption
 
+function encodeConstructorParams (abi, params) {
+  //console.log(params.length)
+    return abi.filter(function (json) {
+        return json.type === 'constructor' && json.inputs.length === params.length;
+    }).map(function (json) {
+        return json.inputs.map(function (input) {
+            return input.type;
+        });
+    }).map(function (types) {
+      //console.log('types:'+types+ ' / params: '+params);
+      //console.log('coder.encodeParams(types, params) : '+coder.encodeParams(types, params));
+        return coder.encodeParams(types, params);
+    })[0] || '';
+};
+
+string2Bin = function(str){
+
+	if( !str ) return false;
+
+  var result = [];
+  for (var i = 0; i < str.length; i++) {
+    result.push(str.charCodeAt(i));
+  }
+  return result;
+}
+
 var smartAssetABI = [{"constant":false,"inputs":[{"name":"_amount","type":"uint256"},{"name":"_toAddress","type":"address"},{"name":"_DBSAccountNo","type":"string"},{"name":"_oracleContractAddress","type":"address"}],"name":"initiateAssetTransfer","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_DBSAccountNo","type":"string"}],"name":"finalizeAssetTransfer","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_DBSAccountNo","type":"string"}],"name":"cxlPendingTxn","outputs":[],"payable":false,"type":"function"},{"inputs":[{"name":"_assetDocumentation","type":"bytes"},{"name":"_initialAssetHolders","type":"address[]"},{"name":"_initialAssetAmounts","type":"uint256[]"}],"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"something","type":"string"}],"name":"log","type":"event"}]
 var oracleABI     = [{"constant":false,"inputs":[{"name":"_DBSAccountNo","type":"string"}],"name":"registerAssetToAccount","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_DBSAccountNo","type":"string"}],"name":"updateAsset","outputs":[],"payable":false,"type":"function"},{"inputs":[],"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"something","type":"string"}],"name":"log","type":"event"}]
 
@@ -14,7 +40,7 @@ var oracleCode     = '60606040525b33600060006101000a81548173ffffffffffffffffffff
 
 // You can change this to your seed
 // and the nonce of the first address
-var seed = 'cactus diesel absent fun rate eye wagon collect motion energy siege trust' // 0x38955094606195f5ae80afbe057f29e67aefc6cd
+var seed = 'cactus diesel absent fun rate eye wagon collect motion energy siege trust' // 0x8529b49a04d1a8568b85bcb9a11a79eb130a552d
 
 lightwallet.keystore.deriveKeyFromPassword('mypassword', function(err, pwDerivedKey) {
   if( pwDerivedKey ){
@@ -29,29 +55,13 @@ lightwallet.keystore.deriveKeyFromPassword('mypassword', function(err, pwDerived
       }catch(e){
         console.log('0',e);
       }
-      console.log(nonce);
-
-      function encodeConstructorParams (abi, params) {
-        //console.log(params.length)
-          return abi.filter(function (json) {
-              return json.type === 'constructor' && json.inputs.length === params.length;
-          }).map(function (json) {
-              return json.inputs.map(function (input) {
-                  return input.type;
-              });
-          }).map(function (types) {
-            //console.log('types:'+types+ ' / params: '+params);
-            //console.log('coder.encodeParams(types, params) : '+coder.encodeParams(types, params));
-              return coder.encodeParams(types, params);
-          })[0] || '';
-      };
-
-      var data = oracleCode + encodeConstructorParams(oracleABI,[])
+      console.log('nonce: ',nonce);
     }catch(e){
       console.log('1',e);
     }
 
     // The transaction data follows the format of ethereumjs-tx
+    var data = oracleCode + encodeConstructorParams(oracleABI,[])
     txOptions = {
         gasPrice: parseInt(web3.eth.gasPrice),
         gasLimit: 4000000,
@@ -74,10 +84,37 @@ lightwallet.keystore.deriveKeyFromPassword('mypassword', function(err, pwDerived
     console.log('')
 
     web3.eth.sendRawTransaction(signedTxn,function(error,result){
-		  if(!error){
-		  	console.log('SendTxn result: ',result);
+		  if(error){
+		  	console.log('SendTxn 1 error: ',error);
 		  }else{
-				console.log('SendTxn error: ',error);
+				console.log('SendTxn 1 result: ',result);
+        var nonce = web3.eth.getTransactionCount(keystore.getAddresses()[0], "pending");
+        console.log('follow-up nonce: ',nonce);
+        var params = [string2Bin('assetInfo'),
+                      [0xa3cff205242f753f8dcb65d10e879ab1642f02a3], // key dad injury rabbit core steel heavy return drum helmet high wide
+                      [50]
+                     ]
+        var data = oracleCode + encodeConstructorParams(smartAssetABI,params);
+        txOptions = {
+            gasPrice: parseInt(web3.eth.gasPrice),
+            gasLimit: 4000000,
+            nonce: nonce,
+            data: data
+        }
+        try{
+          // sendingAddr is needed to compute the contract address
+          var contractData = txutils.createContractTx(sendingAddr, txOptions)
+          var signedTxn = signing.signTx(keystore, pwDerivedKey, contractData.tx, sendingAddr)
+        }catch(e){
+          console.log('3',e);
+        }
+        web3.eth.sendRawTransaction(signedTxn,function(error,result){
+          if(error){
+            console.log('SendTxn 2 error: ',error);
+          }else{
+            console.log('SendTxn 2 result: ',result);
+          }
+        });
 		  }
 		});
   }
