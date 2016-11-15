@@ -3,17 +3,18 @@
 	    "ethereum"  : {
 		    "host" : "http://gethqp6lx.southeastasia.cloudapp.azure.com:8545"
 		  },
-    "disableSolcCompile" : false,
+    "disableSolcCompile" : true,
 		"rubbishAccount" : "head please also core vivid polar thumb run output blade verify arrow",
 		"gasMultiplier" : 10
 	},
 	"public": {
 		"isDevelopmentServer" : true,
 		"ethereum" : {
-			"host" : "http://gethqp6lx.southeastasia.cloudapp.azure.com:8545",
+			"host" : "http://localhost:8545",
 			"password" : "otonomos",
 			"contractGasLimit" : 8000000
 		},
 		"gasAmtTxns" : 3000000
 	}
 }
+

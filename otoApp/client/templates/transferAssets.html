@@ -26,18 +26,18 @@
 			  </label>
 				<label class="item item-input">
 					<i class="icon ion-calculator placeholder-icon"></i>
-			    <input type="number" placeholder="How many?">
+			    <input type="number" placeholder="How many?" ng-model="ta.amount">
 			  </label>
 				<label class="item item-input">
 					<i class="icon ion-cash placeholder-icon"></i>
-			    <input type="number" placeholder="Price per asset?">
+			    <input type="number" placeholder="Price per asset?" ng-model="ta.price">
 			  </label>
 			</div>
 
 			<div class="item">
 
 
-				<button class="button button-full button-dark">
+				<button class="button button-full button-dark" ng-click="ta.transfer()">
 					<i class="icon ion-android-send placeholder-icon"></i>
 				   Send now
 				</button>
