@@ -1,5 +1,8 @@
 var lightwallet = require('eth-lightwallet');
 import coder from 'web3/lib/solidity/coder';
+import { Oracles } from '../lib/collections';
+Fiber = Npm.require('fibers');
+
 var web3 = new Web3(new Web3.providers.HttpProvider(Meteor.settings.public.ethereum.host));
 
 var txutils = lightwallet.txutils
@@ -83,6 +86,16 @@ lightwallet.keystore.deriveKeyFromPassword('mypassword', function(err, pwDerived
     console.log('ORACLE contract address: 0x' + contractData.addr)
     console.log('')
 
+    try{
+      Fiber(function(){
+        Oracles.insert({oracleAddress:contractData.addr}, function(e,r){
+          console.log('er: ',e,r);
+        });
+      }).run();
+    }catch(e){
+      console.log(e);
+    }
+
     web3.eth.sendRawTransaction(signedTxn,function(error,result){
 		  if(error){
 		  	console.log('SendTxn 1 error: ',error);
@@ -151,4 +164,74 @@ lightwallet.keystore.deriveKeyFromPassword('mypassword', function(err, pwDerived
   console.log('')
   */
 
-})
+});
+
+Meteor.methods({
+
+  initiateAssetTransfer: function(){
+    var oracleAddress = Oracles.findOne({}).oracleAddress;
+    console.log(oracleAddress);
+    return false;
+    var nonce = web3.eth.getTransactionCount(keystore.getAddresses()[0], "pending");
+    console.log('follow-up nonce: ',nonce);
+    var params = [25,
+                  0x2963afb32be0d6e88e0919264a041037d29331d3, // again coffee spin firm medal math whip rug sport expose simple mass
+                  '01010101',
+                  oracleAddress,
+
+                 ]
+    var data = oracleCode + encodeConstructorParams(smartAssetABI,params);
+    txOptions = {
+        gasPrice: parseInt(web3.eth.gasPrice),
+        gasLimit: 4000000,
+        nonce: nonce,
+        data: data
+    }
+    try{
+      // sendingAddr is needed to compute the contract address
+      var contractData = txutils.createContractTx(sendingAddr, txOptions)
+      var signedTxn = signing.signTx(keystore, pwDerivedKey, contractData.tx, sendingAddr)
+    }catch(e){
+      console.log('3',e);
+    }
+    web3.eth.sendRawTransaction(signedTxn,function(error,result){
+      if(error){
+        console.log('SendTxn 2 error: ',error);
+      }else{
+        console.log('SendTxn 2 result: ',result);
+      }
+    });
+  },
+  finalizeAssetTransfer: function(){
+    var nonce = web3.eth.getTransactionCount(keystore.getAddresses()[0], "pending");
+    console.log('follow-up nonce: ',nonce);
+    var params = [string2Bin('assetInfo'),
+                  [0xa3cff205242f753f8dcb65d10e879ab1642f02a3],
+                  [50]
+                 ]
+    var data = oracleCode + encodeConstructorParams(smartAssetABI,params);
+    txOptions = {
+        gasPrice: parseInt(web3.eth.gasPrice),
+        gasLimit: 4000000,
+        nonce: nonce,
+        data: data
+    }
+    try{
+      // sendingAddr is needed to compute the contract address
+      var contractData = txutils.createContractTx(sendingAddr, txOptions)
+      var signedTxn = signing.signTx(keystore, pwDerivedKey, contractData.tx, sendingAddr)
+    }catch(e){
+      console.log('3',e);
+    }
+    web3.eth.sendRawTransaction(signedTxn,function(error,result){
+      if(error){
+        console.log('SendTxn 2 error: ',error);
+      }else{
+        console.log('SendTxn 2 result: ',result);
+      }
+    });
+  },
+  cancelTxn: function(){
+    // needed?
+  }
+});
