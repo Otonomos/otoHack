@@ -18,7 +18,9 @@
     "cordova": "^6.4.0",
     "ionic": "^2.1.8",
     "ionic-scripts": "0.0.1",
-    "meteor-node-stubs": "~0.2.0",
-    "moment": "^2.16.0"
+    "meteor-node-stubs": "^0.2.4",
+    "moment": "^2.16.0",
+    "solc": "^0.4.4",
+    "web3": "^0.17.0-beta"
   }
 }

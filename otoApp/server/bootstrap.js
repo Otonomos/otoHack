@@ -3,28 +3,6 @@ import { Accounts } from 'meteor/accounts-base';
 const fs = require('fs');
 
 Meteor.startup(function() {
-  // if (Meteor.users.find().count() != 0) return;
-
-  // Accounts.createUserWithPhone({
-  //   phone: '+972501234567',
-  //   profile: {
-  //     name: 'My friend 1'
-  //   }
-  // });
-  //
-  // Accounts.createUserWithPhone({
-  //   phone: '+972501234568',
-  //   profile: {
-  //     name: 'My friend 2'
-  //   }
-  // });
-  //
-  // Accounts.createUserWithPhone({
-  //   phone: '+972501234569',
-  //   profile: {
-  //     name: 'My friend 3'
-  //   }
-  // });
 
   var solFiles = fs.readdirSync(process.env.PWD+'/contracts');
   console.log('s: ',solFiles);
@@ -65,4 +43,28 @@ Meteor.startup(function() {
     console.log('Development Flag Set - NOT COMPILING SOLIDITY CONTRACTS!!!');
   }
 
+});
+
+  if (Meteor.users.find().count() != 0) return;
+
+  Accounts.createUserWithPhone({
+    phone: '+65826235377',
+    profile: {
+      name: 'Rick Behl'
+    }
+  });
+
+  Accounts.createUserWithPhone({
+    phone: '+972501234568',
+    profile: {
+      name: 'My friend 2'
+    }
+  });
+
+  Accounts.createUserWithPhone({
+    phone: '+972501234569',
+    profile: {
+      name: 'My friend 3'
+    }
+  });
 });

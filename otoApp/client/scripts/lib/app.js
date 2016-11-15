@@ -18,12 +18,16 @@ import LoginCtrl from '../controllers/login.controller';
 import NewChatCtrl from '../controllers/new-chat.controller';
 import ProfileCtrl from '../controllers/profile.controller';
 import SettingsCtrl from '../controllers/settings.controller';
+import EthCtrl from '../controllers/eth.controller';
 import InputDirective from '../directives/input.directive';
 import CalendarFilter from '../filters/calendar.filter';
 import ChatNameFilter from '../filters/chat-name.filter';
 import ChatPictureFilter from '../filters/chat-picture.filter';
 import NewChatService from '../services/new-chat.service';
 import Routes from '../routes';
+
+// Blockchain
+import Web3 from 'web3';
 
 const App = 'Whatsapp';
 
@@ -38,6 +42,7 @@ Angular.module(App, [
 new Loader(App)
   .load(ChatsCtrl)
   .load(ChatCtrl)
+  .load(EthCtrl)
   .load(ConfirmationCtrl)
   .load(LoginCtrl)
   .load(NewChatCtrl)
