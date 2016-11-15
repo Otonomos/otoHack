@@ -5,7 +5,7 @@
     "start": "meteor run"
   },
   "dependencies": {
-    "babel-runtime": "6.18.0",
+    "babel-runtime": "^6.18.0",
     "build": "^0.1.4",
     "cordova": "^6.4.0",
     "ionic": "^2.1.8",
