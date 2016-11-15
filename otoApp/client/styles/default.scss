@@ -15,10 +15,31 @@ font-family: 'Lato', sans-serif;
     height: 80px;
 }
 
+.bold{
+  font-weight: bold;
+}
+
+.homepageH1{
+  font-size: 21px;
+    width: 98%;
+    margin-bottom: 9px !important;
+    padding-bottom: 4px;
+    border-bottom: 3px solid #f33b37;
+}
+
+.back-button{
+  color: #fff;
+    top: 12px;
+}
+
+.fw300{
+  font-weight: 300;
+}
+
 .page-title{
   color: #FFF;
   font-weight: 100;
-  text-align: left;
+  //text-align: left;
   font-size: 24px;
   text-transform: uppercase;
   padding: 5px 0;

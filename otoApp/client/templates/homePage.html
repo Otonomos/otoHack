@@ -1,67 +1,89 @@
-<ion-view title="Home">
+<ion-view>
+	<ion-nav-title align-title="left">
+			<div class="page-title" align-title="left">Welcome Paul</div>
+			<div class="page-sub-title">Digital Bank Singapore</div>
+	</ion-nav-title>
 	<ion-nav-buttons side="right">
-	  <button class="button button-clear"><img class="header-picture" ng-src="https://d1qb2nb5cznatu.cloudfront.net/startups/i/419665-4dbbf5083bd80c5e77de6b8a0c239ef9-medium_jpg.jpg?buster=1404525062"></button>
+		<button class="button button-clear"><img class="header-picture" ng-src="https://scontent.xx.fbcdn.net/v/t1.0-1/p80x80/13938547_1171553186245226_3985211402204721399_n.jpg?oh=915851368d877ccf1c544b75c5f8794a&oe=58BD6E60"></button>
 	</ion-nav-buttons>
 	<ion-content>
 	  <div class="list">
 
-	    <div class="item item-divider">
-	      Accounts
-	    </div>
+			<div class="item">
+				<div class="row"><h1 class="homepageH1">Accounts</h1></div>
 
-	    <a class="item" href="#">
-	      DBS eSavings Plus xxx-xxxxx90
-	    </a>
-
-	    <div class="item item-divider">
-	      Assets
-	    </div>
-
-	    <div ng-repeat="asset in hp.userAssets">
-	    	<a class="item" href="#">
-	    	  {{asset.assetName}}
-	    	</a>
-	    </div>
-
-	    <div class="item item-divider">
-	      Notifications
-	    </div>
-			
-	    <a class="item item-text-wrap">
-	    	<div class="row">
-	    		<div class="col col-80">
-	    			Rick wants to transfer 1000 shares to you at $5 each
-	    		</div>
-	    		<div class="col col-20">
-	    			<button class="button button-assertive">Pay</button> 
-	    		</div>
-	    	</div>
-	    </a>
-			
-			<a class="item item-text-wrap" href = "#">
 				<div class="row">
-					<div class="col col-80">
-						Rick wants to transfer 1000 shares to you at $5 each
+					<div class="col col-80 fw300">
+						DBS eCurrent Plus xxx-xxxxx90
+					</div>
+					<div class="col col-20 fw300">
+						$ 978
 					</div>
 				</div>
-			</a>
 
-			<a class="item item-text-wrap" href = "#">
 				<div class="row">
-					<div class="col col-80">
-						Rick wants to transfer 1000 shares to you at $5 each
+					<div class="col col-80 fw300">
+						DBS eSavings xxx-xxxxx12
 					</div>
-					<div class="col col-20">
-						<button class="button button-assertive">Pay</button> 
+					<div class="col col-20 fw300">
+						$ 134
 					</div>
 				</div>
-			</a>
+
+			</div>
+
+			<div class="item">
+				<div class="row"><h1 class="homepageH1">Other Assets</h1></div>
+
+				<a class="item" href="#">
+					<div class="row">
+						<div class="col col-60 fw300">
+							Otonomos BCC. Pte. Ltd.
+						</div>
+						<div class="col col-40 fw300">
+							400 shares
+						</div>
+					</div>
+				</a>
+
+				<!-- @viet, i couldnt test this loop since i dont have the data, see if it looks good -->
+				<div ng-repeat="asset in hp.userAssets">
+		    	<a class="item" href="#">
+						<div class="row">
+							<div class="col col-60 fw300">
+								{{asset.assetName}}
+							</div>
+							<div class="col col-40 fw300">
+								400 shares
+							</div>
+						</div>
+		    	</a>
+		    </div>
+			</div>
+
+			<div class="item">
+
+
+	    <div class="item item-divider item-text-wrap">
+				<div class="row"><h1 class="homepageH1">Incoming transfer</h1></div>
+
+				<div class="row">
+					<div class="col col-75 fw300 item-text-wrap">
+						Rick B. wants to transfer 1,000 shares to you at $5 each
+					</div>
+					<div class="col col-25 fw300">
+						<button class="button button-assertive button-small">Pay $5,000</button>
+					</div>
+				</div>
+
+	    </div>
+
 	  </div>
- 
+
 	</ion-content>
 
 
-			
+
 
 
 </ion-view>
