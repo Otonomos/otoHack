@@ -21,6 +21,7 @@ import SettingsCtrl from '../controllers/settings.controller';
 import EthCtrl from '../controllers/eth.controller';
 import InputDirective from '../directives/input.directive';
 import Routes from '../routes';
+Session = require('meteor/session').Session;
 
 // Blockchain
 import Web3 from 'web3';
