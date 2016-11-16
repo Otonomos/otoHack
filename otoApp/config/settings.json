@@ -10,7 +10,7 @@
 	"public": {
 		"isDevelopmentServer" : true,
 		"ethereum" : {
-			"host" : "http://localhost:8545",
+			"host" : "http://gethqp6lx.southeastasia.cloudapp.azure.com:8545",
 			"password" : "otonomos",
 			"contractGasLimit" : 8000000
 		},
