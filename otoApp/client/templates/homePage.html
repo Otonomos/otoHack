@@ -10,7 +10,7 @@
 	  <div class="list">
 
 			<div class="item">
-				<div class="row"><h1 class="homepageH1">Accounts</h1></div>
+				<div class="row"><h1 class="homepageH1">Fiat Currency Accounts</h1></div>
 				<div ng-repeat="account in hp.bankAccounts">
 					<div class="row">
 						<div class="col col-80 fw300">
@@ -25,9 +25,9 @@
 			</div>
 
 			<div class="item">
-				<div class="row"><h1 class="homepageH1">Other Assets</h1></div>
+				<div class="row"><h1 class="homepageH1">Digital Assets</h1></div>
 				<div ng-repeat="wallet in hp.assetWallets">
-					<a class="item" ng-click="hp.goToPage('transferAssets')">
+					<a class="item item-text-wrap" ng-click="hp.goToPage('transferAssets')">
 						<div class="row">
 							<div class="col col-60 fw300">
 								{{wallet.assetName}}<br/>
@@ -50,7 +50,7 @@
 					<div class="row">
 						<div class="col col-75 fw300 item-text-wrap">
 							<!-- Rick B. wants to transfer 1,000 shares to you at $5 each -->
-							{{hp.fromName(tx.from)}} wants to transfer {{hp.numberWithCommas(tx.amount)}} to you at ${{tx.price}} each
+							{{hp.fromName(tx.from)}} wants to transfer {{hp.numberWithCommas(tx.amount)}} shares to you at ${{tx.price}} each
 						</div>   
 						<div class="col col-25 fw300">
 							<!-- button class="button button-assertive button-small" ng-click="hp.goToPage('settleTransfer')" ng-if="!tx.settled">Pay ${{hp.numberWithCommas(hp.multiply(tx.amount, tx.price))}}</button-->

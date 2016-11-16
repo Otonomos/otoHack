@@ -78,7 +78,7 @@ export default class stCtrl extends Controller {
 
       setTimeout(function(){
         self.receiveTransfer();
-      },1000)
+      },2000)
     },1500)
   }
 
@@ -168,18 +168,18 @@ export default class stCtrl extends Controller {
                     setTimeout(function(){
                       self.$ionicLoading.hide();
                       self.$state.go('homePage');
-                    },1000)
+                    },2000)
                   });
                   //finalizeAssetTransfer();
-                },1000)
-              },1000)
+                },2000)
+              },2000)
               
 
               
 
             }
           })
-        },1000);
+        },2000);
       }
     })
 

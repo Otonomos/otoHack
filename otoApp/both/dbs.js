@@ -31,7 +31,7 @@ dbs.prototype.getTxns = function(accountId, callback){
     },
     //content: '{"accesstokenDetl":{"partnerid":"HCK1","app id":"0002","userid": "hck1user","passwd":"Hackathon1"}}'
   }, function(e, r){
-    console.log(e,r);
+    //console.log(e,r);
     if( e ) {
       callback(e, '');
     } else {
@@ -78,7 +78,7 @@ dbs.prototype.getAccount = function(accountId){
       rejectUnauthorized: false
     }
   }, function(e, r){
-    console.log(e,r);
+    // console.log(e,r);
 
   //  if( e )
 //      throw e;
@@ -112,6 +112,6 @@ dbs.prototype.getParties = function(){
     },
     //content: '{"accesstokenDetl":{"partnerid":"HCK1","app id":"0002","userid": "hck1user","passwd":"Hackathon1"}}'
   }, function(e, r){
-    console.log(e,r);
+    // console.log(e,r);
   });
 }

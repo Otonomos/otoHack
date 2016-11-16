@@ -1,5 +1,6 @@
-import { Transactions } from '../lib/collections';
+//import { Transactions } from '../lib/collections';
 import { Random } from 'meteor/random';
+import { Transactions, BankAccounts, AssetWallets } from '../lib/collections';
 
 Meteor.methods({
 
@@ -13,7 +14,7 @@ Meteor.methods({
     Transactions.insert({
         "from" : this.userId, 
         "to" : toUserId, 
-        "assetName" : "Otonomos BCC. Pte. Ltd.", 
+        "assetName" : "Otonomos BCC. Pte. Ltd. shares", 
         "amount" : parseInt(amount), 
         "price" :  parseInt(price), 
         "settled" : false
@@ -72,6 +73,76 @@ Meteor.methods({
         // callback(null, result);
       } 
     });
+  }, 
+
+  resetEverything(){
+    BankAccounts.remove({});
+    AssetWallets.remove({});
+    Transactions.remove({});
+
+    if(BankAccounts.find().count() == 0) {
+      var bankAccounts = [
+        {
+          name: "DBS eCurrent Plus xxx-xxxxxx90",
+          amount: 2000,
+          userId: "nqNGdZ9ZN6nL4uoz9"
+        },
+        {
+          name: "DBS eSavings xxx-xxxxxx12",
+          amount: 9000,
+          userId: "BXw9Mb2HxZn8B5yQ7"
+        }
+      ]
+      bankAccounts.forEach(function(ba){
+        BankAccounts.insert(ba);
+      })
+    }
+
+    if(AssetWallets.find().count() == 0){
+      var assetWallets = [
+        {
+          userId       : "BXw9Mb2HxZn8B5yQ7",
+          assetName    : "Otonomos BCC. Pte. Ltd. shares",
+          amount       : 2001,
+          assetAddress : "0x87e3...be3f5845"
+        },
+        {
+          userId       : "nqNGdZ9ZN6nL4uoz9",
+          assetName    : "Otonomos BCC. Pte. Ltd. shares",
+          amount       : 5000,
+          assetAddress : "0x87e3...be3f5845"
+        }
+      ]
+      //random
+      assetWallets.forEach(function(aw){
+        AssetWallets.insert(aw);
+      })
+    }
+
+    // if(Transactions.find().count() == 0){
+    //   var transactions = [
+    //     {
+    //       from      : "nqNGdZ9ZN6nL4uoz9",
+    //       to        : "BXw9Mb2HxZn8B5yQ7",
+    //       assetName : "Otonomos BCC. Pte. Ltd. shares",
+    //       amount    : 1000,
+    //       price     : 5,
+    //       settled   : false
+    //     },
+    //     {
+    //       to      : "nqNGdZ9ZN6nL4uoz9",
+    //       from       : "BXw9Mb2HxZn8B5yQ7",
+    //       assetName : "Otonomos BCC. Pte. Ltd. shares",
+    //       amount    : 10000,
+    //       price     : 2,
+    //       settled   : true
+    //     }
+    //   ];
+
+    //   transactions.forEach(function(tx){
+    //     Transactions.insert(tx);
+    //   })
+    // }
   }
 
 });
