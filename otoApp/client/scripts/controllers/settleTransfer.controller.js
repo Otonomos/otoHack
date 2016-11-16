@@ -62,6 +62,25 @@ export default class stCtrl extends Controller {
   multiply(a, b) {
     return a * b;
   }
+
+  receiveTransfer() {
+    console.log(`You are completing the transfer`);
+    console.log(`Make payment using DBS API`);
+    var _dbs = new dbs();
+
+    _dbs.doTxn('0284886660', '0284886680', 50, function (err, result) {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log('success: ', result);
+
+        console.log('Update balances for both parties');
+        console.log(`Once payment confirmed notify seller`);
+        console.log(`Call Smart contract method`);
+        console.log(`Notify both parties`);
+      } 
+    });
+  }    
 }
 
 stCtrl.$name = 'stCtrl';

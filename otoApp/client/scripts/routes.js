@@ -28,17 +28,26 @@ class RoutesConfig extends Config {
       .state('homePage',{
         url: '/homePage',
         templateUrl: 'client/templates/homePage.html',
-        controller: 'hpCtrl as hp'
+        controller: 'hpCtrl as hp',
+        resolve: {
+          user: this.isAuthorized
+        }
       })
       .state('transferAssets', {
         url: '/transferAssets',
         templateUrl: 'client/templates/transferAssets.html',
-        controller: 'taCtrl as ta'
+        controller: 'taCtrl as ta',
+        resolve: {
+          user: this.isAuthorized
+        }
       })
       .state('settleTransfer', {
         url: '/settleTransfer',
         templateUrl: 'client/templates/settleTransfer.html',
-        controller: 'stCtrl as st'
+        controller: 'stCtrl as st',
+        resolve: {
+          user: this.isAuthorized
+        }
       })
       .state('confirmation', {
         url: '/confirmation/:phone',
