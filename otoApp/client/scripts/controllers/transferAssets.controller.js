@@ -50,7 +50,8 @@ export default class taCtrl extends Controller {
 
   transfer(){
     var self = this;
-    Meteor.call('initiateTransfer', this.toUserId, this.amount, this.price, function(err,res){
+    // Meteor.call('initiateAssetTransfer', this.toUserId, this.amount, this.price, function(err,res){
+    Meteor.call('initiateAssetTransfer', function(err,res) {      
       if(!err){
         self.$state.go('homePage');
       }
