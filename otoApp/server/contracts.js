@@ -111,7 +111,7 @@ lightwallet.keystore.deriveKeyFromPassword('mypassword', function(err, pwDerived
         console.log('follow-up nonce: ',nonce);
         var params = [string2Bin('assetInfo'),
                       ['0xa3cff205242f753f8dcb65d10e879ab1642f02a3'], // key dad injury rabbit core steel heavy return drum helmet high wide
-                      [50]
+                      [5000]
                      ]
         console.log(params);
         var data = smartAssetCode + encodeConstructorParams(smartAssetABI,params);
@@ -198,7 +198,7 @@ Meteor.methods({
           var nonce = web3.eth.getTransactionCount(keystore.getAddresses()[0], "pending");
           console.log('initiate transfer nonce: ',nonce);
           try{
-            var params = [25,
+            var params = [1000,
                           '0x2963afb32be0d6e88e0919264a041037d29331d3', // again coffee spin firm medal math whip rug sport expose simple mass
                           '01010101',
                           oracleAddress
