@@ -82,6 +82,11 @@ export default class hpCtrl extends Controller {
     // Redirect
     this.$state.go('settleTransfer');    
   }
+
+  logout(){
+    Meteor.logout();
+    this.$state.go('login');
+  }
 }
 
 hpCtrl.$name = 'hpCtrl';
