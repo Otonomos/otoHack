@@ -10,11 +10,16 @@
     <div class="list">
       <label class="item item-input">
         <i class="icon ion-ios-telephone placeholder-icon"></i>
-        <input ng-model="logger.phone" on-return="logger.login()" type="text" placeholder="Your phone number">
+        <input ng-model="logger.email" type="text" placeholder="Your email">
+      </label>
+      
+      <label class="item item-input">
+        <i class="icon ion-ios-telephone placeholder-icon"></i>
+        <input ng-model="logger.password" type="password" placeholder="Your password">
       </label>
 
       <div class="item">
-				<button ng-click="logger.login()" ng-disabled="!logger.phone || logger.phone.length === 0"  class="button button-full button-dark">
+				<button ng-click="logger.login()" ng-disabled="logger.email.length === 0 || logger.password.length === 0"  class="button button-full button-dark">
 					<i class="icon ion-unlocked placeholder-icon"></i>
 					 Login now
 				</button>
