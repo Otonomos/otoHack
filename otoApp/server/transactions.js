@@ -13,7 +13,7 @@ Meteor.methods({
     Transactions.insert({
         "from" : this.userId, 
         "to" : toUserId, 
-        "assetName" : "Otonomos BCC Pte. Ltd.", 
+        "assetName" : "Otonomos BCC. Pte. Ltd.", 
         "amount" : parseInt(amount), 
         "price" :  parseInt(price), 
         "settled" : false
@@ -37,13 +37,13 @@ Meteor.methods({
   },
 
   // Method to make the DBS payment for a transfer
-  makeDBSPayment(callback) {
+  makeDBSPayment() {
     const _dbs = new dbs();
 
     _dbs.doTxn('0284886660', '0284886680', 50, function (err, result) {
       if (err) {
         console.log(err);
-        callback(err, '');
+        //callback(err, '');
       } else {
         // console.log('success: ', result);
         // console.log('Update balances for both parties');
@@ -52,7 +52,8 @@ Meteor.methods({
         // _dbs.getTxns('0284886680')
         // console.log(`Call Smart contract method`);
         // console.log(`Notify both parties`);
-        callback(null, result);
+        //callback(null, result);
+        return result;
       } 
     });
   },

@@ -63,13 +63,33 @@ export default class stCtrl extends Controller {
     return a * b;
   }
 
+  fingerprint(){
+    var self = this;
+    var myPopup = this.$ionicPopup.show({
+      template: '<center><img src="http://ngcordova.com/img/feature-touchid.png" width="50"></br><strong>Touch ID</strong><br/>Authentication is needed to initiate asset transfer<br/><br/></center>',
+
+    })
+
+    setTimeout(function(){
+      myPopup.close();
+      self.$ionicLoading.show({
+        template: "Authenticating your fingerprint..."
+      });
+
+      setTimeout(function(){
+        self.receiveTransfer();
+      },1000)
+    },1500)
+  }
+
   receiveTransfer() {
     console.log(`You are completing the transfer`);
 
-    const thisTX = Transactions.find(Session.get('txID'));
-    const thisAmount = thisTX.amount;
-    const thisPrice = thisTX.price;
+    const thisTX = Transactions.findOne(Session.get('txID'));
+    const thisAmount = parseInt(thisTX.amount);
+    const thisPrice = parseInt(thisTX.price);
     const thisAsset = thisTX.assetName;
+    console.log(thisAsset, 'is thisAsset');
 
     console.log(`Make payment using DBS API`);
     Meteor.call('makeDBSPayment', function (err, result) {
@@ -100,7 +120,7 @@ export default class stCtrl extends Controller {
             console.log(`Updating balances for both parties`);
 
             // Reduce the buyers balance
-            baID = BankAccounts.findOne({userId: '"BXw9Mb2HxZn8B5yQ7"'})._id;
+            baID = BankAccounts.findOne({userId: "BXw9Mb2HxZn8B5yQ7"})._id;
             BankAccounts.update({_id: baID}, { $inc : {  amount: (-1 * thisAmount * thisPrice) } });
 
             // BankAccounts.update({userId: 'oeRQ5F7cTHPWfHAvE'},
@@ -116,6 +136,7 @@ export default class stCtrl extends Controller {
             // Update the assets for both parties
 
             // Reduce the sellers assets
+            console.log(AssetWallets.findOne({userId: 'nqNGdZ9ZN6nL4uoz9', assetName: thisAsset}), 'is the current assetWallet');
             awID = AssetWallets.findOne({userId: 'nqNGdZ9ZN6nL4uoz9', assetName: thisAsset})._id;
 
             AssetWallets.update({_id: awID},
@@ -134,10 +155,11 @@ export default class stCtrl extends Controller {
             //   { $inc: {amount: (thisAmount)} })
 
             // Notify the buyer and seller that transaction settled
-            Transaction.update({_id: thisTX}, { $set: { settled: true}});
+            Transactions.update({_id: thisTX._id}, { $set: { settled: true}});
 
             // Call the smart contract method to update the blockchain
-            finalizeAssetTransfer();
+            Meteor.call('finalizeAssetTransfer');
+            //finalizeAssetTransfer();
 
           }
         })
@@ -165,4 +187,4 @@ export default class stCtrl extends Controller {
 }
 
 stCtrl.$name = 'stCtrl';
-stCtrl.$inject = ['$stateParams', '$timeout', '$ionicScrollDelegate', '$ionicPopup', '$log'];
+stCtrl.$inject = ['$stateParams', '$timeout', '$ionicScrollDelegate', '$ionicPopup', '$log', '$ionicLoading'];
