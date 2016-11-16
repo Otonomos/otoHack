@@ -13,8 +13,8 @@ export default class taCtrl extends Controller {
     this.chatId = this.$stateParams.chatId;
     this.isIOS = Ionic.Platform.isWebView() && Ionic.Platform.isIOS();
     this.isCordova = Meteor.isCordova;
-    this.amount = 0;
-    this.price = 0;
+    this.amount = "";
+    this.price = "";
     this.toUserId = "BXw9Mb2HxZn8B5yQ7";
 
     this.helpers({
@@ -48,16 +48,62 @@ export default class taCtrl extends Controller {
     });
   }
 
+  fingerprint(){
+    var self = this;
+    var myPopup = this.$ionicPopup.show({
+      template: '<center><img src="http://ngcordova.com/img/feature-touchid.png" width="50"></br><strong>Touch ID</strong><br/>Authentication is needed to initiate asset transfer<br/><br/></center>',
+
+    })
+
+    setTimeout(function(){
+      myPopup.close();
+      self.$ionicLoading.show({
+        template: "Authenticating your fingerprint..."
+      });
+
+      setTimeout(function(){
+        self.transfer();
+      },1000)
+    },1500)
+  }
+
   transfer(){
     var self = this;
     // Meteor.call('initiateAssetTransfer', this.toUserId, this.amount, this.price, function(err,res){
+    this.$ionicLoading.show({
+      template: "Initiating asset transfer on the blockchain..."
+    })
+
     Meteor.call('initiateAssetTransfer', function(err,res) {      
       if(!err){
-        self.$state.go('homePage');
+        setTimeout(function(){
+          self.$ionicLoading.show({
+            template: "Notifying the recipient ..."
+          })
+          Meteor.call('initiateTransfer', self.toUserId, self.amount, self.price, function(err,res){
+
+            setTimeout(function(){
+              self.$ionicLoading.show({
+                template: "Asset transfer successfully initiated!",
+                timeout: 3000
+              })
+
+              setTimeout(function(){
+                self.$ionicLoading.hide();
+                self.$state.go('homePage');
+              },1000)
+            },1000)
+            
+
+            
+
+          })
+        },1000)
+        
       }
     })
   }
 }
 
 taCtrl.$name = 'taCtrl';
-taCtrl.$inject = ['$stateParams', '$timeout', '$ionicScrollDelegate', '$ionicPopup', '$log', '$state'];
+taCtrl.$inject = ['$stateParams', '$timeout', '$ionicScrollDelegate', '$ionicPopup', '$log', '$state', '$ionicLoading', '$ionicPopup'];
