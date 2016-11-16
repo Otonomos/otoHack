@@ -29,11 +29,11 @@
 				<div ng-repeat="wallet in hp.assetWallets">
 					<a class="item item-text-wrap" ng-click="hp.goToPage('transferAssets')">
 						<div class="row">
-							<div class="col col-60 fw300">
+							<div class="col col-80 fw300">
 								{{wallet.assetName}}<br/>
 								({{wallet.assetAddress}})
 							</div>
-							<div class="col col-40 fw300">
+							<div class="col col-20 fw300">
 								{{hp.numberWithCommas(wallet.amount)}}
 							</div>
 						</div>

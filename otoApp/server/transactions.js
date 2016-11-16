@@ -103,7 +103,7 @@ Meteor.methods({
         {
           userId       : "BXw9Mb2HxZn8B5yQ7",
           assetName    : "Otonomos BCC. Pte. Ltd. shares",
-          amount       : 2001,
+          amount       : 1,
           assetAddress : "0x87e3...be3f5845"
         },
         {
