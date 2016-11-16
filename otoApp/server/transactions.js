@@ -34,5 +34,43 @@ Meteor.methods({
             settled: true
         }
     });
+  },
+
+  // Method to make the DBS payment for a transfer
+  makeDBSPayment(callback) {
+    const _dbs = new dbs();
+
+    _dbs.doTxn('0284886660', '0284886680', 50, function (err, result) {
+      if (err) {
+        console.log(err);
+        callback(err, '');
+      } else {
+        // console.log('success: ', result);
+        // console.log('Update balances for both parties');
+        // console.log(`Once payment confirmed notify seller`);
+        // console.log(`About to query for transactions`);
+        // _dbs.getTxns('0284886680')
+        // console.log(`Call Smart contract method`);
+        // console.log(`Notify both parties`);
+        callback(null, result);
+      } 
+    });
+  },
+
+  // Method to make the DBS payment for a transfer
+  checkDBSPayment() {
+    const _dbs = new dbs();
+
+    _dbs.getTxns('0284886660', function (err, result) {
+      if (err) {
+        console.log(err);
+        throw new Meteor.Error(`Not Cool story bro: ${err}`);
+        // callback(err, '');
+      } else {
+        return result;
+        // callback(null, result);
+      } 
+    });
   }
+
 });

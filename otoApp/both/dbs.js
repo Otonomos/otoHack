@@ -23,7 +23,7 @@ dbs.prototype.init = function(){
 //Account 2: 0284886680
 
 //var a = new dbs().getTxns('0284886660')
-dbs.prototype.getTxns = function(accountId){
+dbs.prototype.getTxns = function(accountId, callback){
   var result = HTTP.call("GET", this.dbsAPIEndpoint + "accounts/" + accountId + "/transactions", {
     headers: this.apiHeaders,
     npmRequestOptions: { // We need to add this to prevent cert issues
@@ -32,30 +32,39 @@ dbs.prototype.getTxns = function(accountId){
     //content: '{"accesstokenDetl":{"partnerid":"HCK1","app id":"0002","userid": "hck1user","passwd":"Hackathon1"}}'
   }, function(e, r){
     console.log(e,r);
-
-    if( e )
-      throw e;
-
-    console.log( r.content )
+    if( e ) {
+      callback(e, '');
+    } else {
+      callback(null, r);
+    }
+    // console.log( r.content )
   });
 }
 
 //Account 1: 0284886660
 //Account 2: 0284886680
-dbs.prototype.doTxn = function(from, to, amount){
+dbs.prototype.doTxn = function(from, to, amount, callback){
+  apiContent = '{"transferType":"01","transactionAmount":{"amount":1,"currency":"SGD"},"valueDate":"2016-11-15","transactionDesc":"test","transferFromDetl":{"accountId":"'+from+'","productType":"CA","accountNumber":"028-28967124"},"transferToDetl":{"accountId":"'+to+'","productType":"CA","accountNumber":"028-28967124"}}'; 
+
+  console.log(`*********************** START DBS API REQUEST *********************`);
+  console.log(JSON.stringify(JSON.parse(apiContent), null, 2)); 
+  console.log(`*********************** END DBS API REQUEST *********************`);
+
   var result = HTTP.call("POST", this.dbsAPIEndpoint + "accounts/" + from + "/fundsTransfer", {
     headers: this.apiHeaders,
     npmRequestOptions: { // We need to add this to prevent cert issues
       rejectUnauthorized: false
     },
-    content : '{"transferType":"01","transactionAmount":{"amount":1,"currency":"SGD"},"valueDate":"2016-11-15","transactionDesc":"test","transferFromDetl":{"accountId":"'+from+'","productType":"CA","accountNumber":"028-28967124"},"transferToDetl":{"accountId":"'+to+'","productType":"CA","accountNumber":"028-28967124"}}'
+    content : apiContent
   }, function(e, r){
-    //console.log(e,r);
-
-    if( e )
-      throw e;
-
-    console.log('Transaction ID: ', r.data.transactionReference )
+    if ( e ) {
+      callback (e, null);
+    } else {
+      console.log(`*********************** START DBS API REPLY *********************`);
+      console.log(JSON.stringify(r.data, null, 2)); 
+      console.log(`*********************** END DBS API REPLY *********************`);      
+      callback(e, r.data.transactionReference);
+    }
   });
 }
 
