@@ -111,7 +111,19 @@ Meteor.methods({
           assetName    : "Otonomos BCC. Pte. Ltd. shares",
           amount       : 5000,
           assetAddress : "0x87e3...be3f5845"
-        }
+        },
+        {
+          userId       : "nqNGdZ9ZN6nL4uoz9",
+          assetName    : "Physical Gold (Troy Ounces)",
+          amount       : 400,
+          assetAddress : "0x87e3...be3f5845"
+        },
+        {
+          userId       : "nqNGdZ9ZN6nL4uoz9",
+          assetName    : "Changi Land (Hectares)",
+          amount       : 50,
+          assetAddress : "0x87e3...be3f5845"
+        }               
       ]
       //random
       assetWallets.forEach(function(aw){
